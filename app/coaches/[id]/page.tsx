@@ -1,3 +1,8 @@
+"use client"
+import { useState, useEffect } from "react"
+import { supabase } from "../../lib/supabase"
+import { useParams } from "next/navigation"
+
 const coaches = [
   {
     id: "li-mingyuan",
@@ -29,7 +34,7 @@ const coaches = [
     rating: 4.8,
     reviews: 96,
     tags: ["零基础入门", "女子专场", "体能训练"],
-    bio: "体育学院运动训练专业硕士，USPTA 国际认证教练。专注零基础学员和女性学员，教学风格温和耐心，善于帮助初学者建立正确的击球习惯和运动意识。",
+    bio: "体育学院运动训练专业硕士，USPTA 国际认证教练。专注零基础学员和女性学员，教学风格温和耐心。",
     slots: ["周一 10:00", "周三 09:00", "周五 14:00", "周六 10:00", "周日 15:00"],
     testimonials: [
       { name: "张女士", text: "从完全零基础到能打完整的一局，王教练功不可没！", stars: 5 },
@@ -51,16 +56,49 @@ const coaches = [
     bio: "ATP 国际认证裁判，同时担任专业网球教练12年。对网球规则和战术有深入研究，擅长双打配合训练和比赛心理辅导。",
     slots: ["周二 14:00", "周四 09:00", "周五 10:00", "周六 14:00", "周日 09:00"],
     testimonials: [
-      { name: "王先生", text: "张教练的战术课让我对网球有了全新的理解，双打成绩大幅提升！", stars: 5 },
+      { name: "王先生", text: "张教练的战术课让我对网球有了全新的理解！", stars: 5 },
       { name: "李同学", text: "作为裁判出身，对规则的理解非常深刻，受益匪浅。", stars: 5 },
       { name: "赵先生", text: "比赛心理辅导很有帮助，现在打比赛不再紧张了。", stars: 5 },
     ],
   },
 ]
 
-export default async function CoachPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params
+export default function CoachPage() {
+  const params = useParams()
+  const id = params.id as string
   const coach = coaches.find((c) => c.id === id)
+  const [selectedSlot, setSelectedSlot] = useState(0)
+  const [loading, setLoading] = useState(false)
+  const [message, setMessage] = useState("")
+  const [user, setUser] = useState<any>(null)
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => setUser(data.user))
+  }, [])
+
+  const handleBooking = async () => {
+    if (!user) {
+      window.location.href = "/auth/login"
+      return
+    }
+    if (!coach) return
+    setLoading(true)
+    setMessage("")
+
+    const { error } = await supabase.from("bookings").insert({
+      user_id: user.id,
+      coach_name: coach.name,
+      slot: coach.slots[selectedSlot],
+      status: "pending"
+    })
+
+    if (error) {
+      setMessage("预约失败，请重试")
+    } else {
+      setMessage("🎾 预约成功！我们将在24小时内确认")
+    }
+    setLoading(false)
+  }
 
   if (!coach) return (
     <div className="min-h-screen bg-[#0b160b] text-white flex items-center justify-center">找不到该教练</div>
@@ -120,14 +158,27 @@ export default async function CoachPage({ params }: { params: Promise<{ id: stri
               <div className="text-[#8fce6a] text-xs tracking-widest uppercase mb-4">选择上课时间</div>
               <div className="grid grid-cols-2 gap-2 mb-6">
                 {coach.slots.map((slot, i) => (
-                  <button key={slot} className={`text-xs p-3 rounded-sm border text-left transition-colors ${i === 0 ? "bg-[#2d6a2d] border-[#2d6a2d] text-white" : "border-white/20 text-white/60 hover:border-[#2d6a2d]"}`}>
+                  <button key={slot} onClick={() => setSelectedSlot(i)}
+                    className={`text-xs p-3 rounded-sm border text-left transition-colors ${selectedSlot === i ? "bg-[#2d6a2d] border-[#2d6a2d] text-white" : "border-white/20 text-white/60 hover:border-[#2d6a2d]"}`}>
                     <div className="font-medium">{slot.split(" ")[0]}</div>
                     <div className="text-xs opacity-70">{slot.split(" ")[1]}</div>
                   </button>
                 ))}
               </div>
-              <button className="w-full bg-[#2d6a2d] text-white py-3 text-sm rounded-sm hover:bg-[#245524] mb-3">确认预约 · 免费试课</button>
-              <button className="w-full border border-white/20 text-white/60 py-3 text-sm rounded-sm hover:border-[#2d6a2d]">发消息给教练</button>
+
+              {message && (
+                <div className={`text-sm px-4 py-3 rounded-sm mb-4 ${message.includes("成功") ? "bg-[#eaf3de] text-[#3b6d11]" : "bg-red-900/30 text-red-300"}`}>
+                  {message}
+                </div>
+              )}
+
+              <button onClick={handleBooking} disabled={loading}
+                className="w-full bg-[#2d6a2d] text-white py-3 text-sm rounded-sm hover:bg-[#245524] mb-3 disabled:opacity-50">
+                {loading ? "预约中..." : user ? "确认预约 · 免费试课" : "登录后预约"}
+              </button>
+              <button className="w-full border border-white/20 text-white/60 py-3 text-sm rounded-sm hover:border-[#2d6a2d]">
+                发消息给教练
+              </button>
               <div className="text-center text-white/30 text-xs mt-4">预约后24小时内确认 · 免费取消</div>
             </div>
           </div>
