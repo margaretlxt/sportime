@@ -1,42 +1,36 @@
 export default function Home() {
+  const coaches = [
+    { name: "李明远", initial: "李", title: "前职业球员 · ITF 认证 · 北京", tags: ["竞技提升", "发球技术", "青少年"], price: "¥380", rating: "4.9", reviews: "128", bg: "from-[#1a3a1a] to-[#2d5a1a]", featured: true, id: "li-mingyuan" },
+    { name: "王雅琴", initial: "王", title: "体育学院硕士 · USPTA 认证 · 上海", tags: ["零基础入门", "女子专场", "体能训练"], price: "¥280", rating: "4.8", reviews: "96", bg: "from-[#1a2a3a] to-[#1a3a4a]", featured: false, id: "wang-yaqin" },
+    { name: "张峰", initial: "张", title: "ATP 赛事裁判 · 广州 · 12年经验", tags: ["战术分析", "双打技巧", "成人班"], price: "¥320", rating: "4.9", reviews: "74", bg: "from-[#3a1a1a] to-[#4a2a10]", featured: false, id: "zhang-feng" },
+  ]
+
   return (
     <main className="min-h-screen bg-[#0b160b]">
 
       {/* 导航栏 */}
       <nav className="flex items-center justify-between px-8 py-4 border-b border-white/10">
-        <div className="text-white font-serif text-xl">
-          Spor<span className="text-[#8fce6a]">time</span>
-        </div>
+        <div className="text-white font-serif text-xl">Spor<span className="text-[#8fce6a]">time</span></div>
         <div className="flex gap-6 items-center">
           <a className="text-white/60 text-sm hover:text-white cursor-pointer">找教练</a>
           <a className="text-white/60 text-sm hover:text-white cursor-pointer">成为教练</a>
           <a className="text-white/60 text-sm hover:text-white cursor-pointer">定价</a>
-          <button className="bg-[#2d6a2d] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#245524]">
-            免费注册
-          </button>
+          <button className="bg-[#2d6a2d] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#245524]">免费注册</button>
         </div>
       </nav>
 
       {/* Hero */}
       <div className="flex flex-col items-center justify-center text-center px-8 py-32">
-        <div className="text-[#8fce6a] text-xs tracking-widest uppercase mb-6">
-          全国认证教练平台 · 800+ 教练
-        </div>
+        <div className="text-[#8fce6a] text-xs tracking-widest uppercase mb-6">全国认证教练平台 · 800+ 教练</div>
         <h1 className="text-white font-serif text-6xl font-light leading-tight mb-6">
           找到你的<br />
           <em className="text-[#8fce6a] not-italic">完美教练</em><br />
           赢在每一拍
         </h1>
-        <p className="text-white/50 text-sm max-w-md leading-relaxed mb-10">
-          连接全国专业认证网球教练，智能匹配最适合你水平与目标的训练方案
-        </p>
+        <p className="text-white/50 text-sm max-w-md leading-relaxed mb-10">连接全国专业认证网球教练，智能匹配最适合你水平与目标的训练方案</p>
         <div className="flex gap-4">
-          <button className="bg-[#2d6a2d] text-white px-8 py-3 text-sm rounded-sm hover:bg-[#245524]">
-            立即找教练
-          </button>
-          <button className="border border-white/30 text-white px-8 py-3 text-sm rounded-sm hover:border-[#8fce6a]">
-            了解更多
-          </button>
+          <button className="bg-[#2d6a2d] text-white px-8 py-3 text-sm rounded-sm hover:bg-[#245524]">立即找教练</button>
+          <button className="border border-white/30 text-white px-8 py-3 text-sm rounded-sm hover:border-[#8fce6a]">了解更多</button>
         </div>
         <div className="flex gap-12 mt-16">
           <div><div className="text-[#8fce6a] font-serif text-3xl">800+</div><div className="text-white/40 text-xs tracking-widest uppercase mt-1">认证教练</div></div>
@@ -61,9 +55,7 @@ export default function Home() {
             { num: "4", title: "持续进步", desc: "个性化课程计划，追踪你的成长" },
           ].map((step) => (
             <div key={step.num} className="text-center relative z-10">
-              <div className="w-12 h-12 rounded-full border border-[#2d6a2d] flex items-center justify-center mx-auto mb-4 bg-[#0b160b] text-[#2d6a2d] font-serif text-lg">
-                {step.num}
-              </div>
+              <div className="w-12 h-12 rounded-full border border-[#2d6a2d] flex items-center justify-center mx-auto mb-4 bg-[#0b160b] text-[#2d6a2d] font-serif text-lg">{step.num}</div>
               <div className="text-white text-sm font-medium mb-2">{step.title}</div>
               <div className="text-white/40 text-xs leading-relaxed">{step.desc}</div>
             </div>
@@ -79,26 +71,18 @@ export default function Home() {
           <p className="text-white/40 text-sm mt-3">每位教练均通过严格资质认证，平均执教经验 8 年以上</p>
         </div>
         <div className="grid grid-cols-3 gap-6 max-w-5xl mx-auto">
-          {[
-            { name: "李明远", initial: "李", title: "前职业球员 · ITF 认证 · 北京", tags: ["竞技提升", "发球技术", "青少年"], price: "¥380", rating: "4.9", reviews: "128", bg: "from-[#1a3a1a] to-[#2d5a1a]", featured: true },
-            { name: "王雅琴", initial: "王", title: "体育学院硕士 · USPTA 认证 · 上海", tags: ["零基础入门", "女子专场", "体能训练"], price: "¥280", rating: "4.8", reviews: "96", bg: "from-[#1a2a3a] to-[#1a3a4a]", featured: false },
-            { name: "张峰", initial: "张", title: "ATP 赛事裁判 · 广州 · 12年经验", tags: ["战术分析", "双打技巧", "成人班"], price: "¥320", rating: "4.9", reviews: "74", bg: "from-[#3a1a1a] to-[#4a2a10]", featured: false },
-          ].map((coach) => (
+          {coaches.map((coach) => (
             <div key={coach.name} className={`rounded-xl overflow-hidden border ${coach.featured ? "border-[#2d6a2d]" : "border-white/10"} bg-white/5`}>
               <div className={`h-20 bg-gradient-to-br ${coach.bg} relative`}>
                 <div className="absolute top-2 right-2 bg-black/40 text-[#8fce6a] text-xs px-2 py-1 rounded">✓ 认证</div>
-                <div className="absolute -bottom-6 left-4 w-12 h-12 rounded-full bg-[#2d6a2d] border-2 border-[#0b160b] flex items-center justify-center text-white font-serif text-lg">
-                  {coach.initial}
-                </div>
+                <div className="absolute -bottom-6 left-4 w-12 h-12 rounded-full bg-[#2d6a2d] border-2 border-[#0b160b] flex items-center justify-center text-white font-serif text-lg">{coach.initial}</div>
               </div>
               <div className="pt-8 px-4 pb-4">
                 <div className="text-white font-medium mb-1">{coach.name}</div>
                 <div className="text-white/40 text-xs mb-3">{coach.title}</div>
                 <div className="flex flex-wrap gap-1 mb-4">
                   {coach.tags.map((tag, i) => (
-                    <span key={tag} className={`text-xs px-2 py-1 rounded-sm ${i === 0 ? "bg-[#eaf3de] text-[#3b6d11]" : "bg-white/10 text-white/50"}`}>
-                      {tag}
-                    </span>
+                    <span key={tag} className={`text-xs px-2 py-1 rounded-sm ${i === 0 ? "bg-[#eaf3de] text-[#3b6d11]" : "bg-white/10 text-white/50"}`}>{tag}</span>
                   ))}
                 </div>
                 <div className="flex items-center justify-between pt-3 border-t border-white/10">
@@ -107,7 +91,7 @@ export default function Home() {
                     <div className="text-white/30 text-xs">含场地费</div>
                   </div>
                   <div className="text-white/60 text-xs">★ {coach.rating} ({coach.reviews})</div>
-                  <button className="bg-[#2d6a2d] text-white text-xs px-3 py-2 rounded-sm hover:bg-[#245524]">预约</button>
+                  <a href={`/coaches/${coach.id}`} className="bg-[#2d6a2d] text-white text-xs px-3 py-2 rounded-sm hover:bg-[#245524]">预约</a>
                 </div>
               </div>
             </div>
@@ -129,23 +113,18 @@ export default function Home() {
             { name: "精英", price: "¥298", period: "每月", features: ["包含所有进阶功能", "专属训练顾问", "赛事报名协助", "营养与体能方案", "线下活动优先席位"], featured: false, btn: "了解详情" },
           ].map((plan) => (
             <div key={plan.name} className={`rounded-xl p-8 relative border ${plan.featured ? "border-[#2d6a2d] bg-[#0e1a0e]" : "border-white/10 bg-white/5"}`}>
-              {plan.featured && (
-                <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#2d6a2d] text-white text-xs px-4 py-1 rounded-full">最受欢迎</div>
-              )}
+              {plan.featured && <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#2d6a2d] text-white text-xs px-4 py-1 rounded-full">最受欢迎</div>}
               <div className="text-[#8fce6a] text-xs tracking-widest uppercase mb-4">{plan.name}</div>
               <div className="text-white font-serif text-5xl font-light mb-1">{plan.price}</div>
               <div className="text-white/40 text-xs mb-8">{plan.period}</div>
               <ul className="space-y-3 mb-8">
                 {plan.features.map((f) => (
                   <li key={f} className="flex items-center gap-2 text-sm text-white/60">
-                    <span className="w-1 h-1 bg-[#2d6a2d] rotate-45 inline-block flex-shrink-0"></span>
-                    {f}
+                    <span className="w-1 h-1 bg-[#2d6a2d] rotate-45 inline-block flex-shrink-0"></span>{f}
                   </li>
                 ))}
               </ul>
-              <button className={`w-full py-3 text-sm rounded-sm transition-colors ${plan.featured ? "bg-[#2d6a2d] text-white hover:bg-[#245524]" : "border border-white/20 text-white hover:border-[#2d6a2d]"}`}>
-                {plan.btn}
-              </button>
+              <button className={`w-full py-3 text-sm rounded-sm transition-colors ${plan.featured ? "bg-[#2d6a2d] text-white hover:bg-[#245524]" : "border border-white/20 text-white hover:border-[#2d6a2d]"}`}>{plan.btn}</button>
             </div>
           ))}
         </div>
