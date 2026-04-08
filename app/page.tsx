@@ -12,10 +12,10 @@ export default function Home() {
       <nav className="flex items-center justify-between px-8 py-4 border-b border-white/10">
         <div className="text-white font-serif text-xl">Spor<span className="text-[#8fce6a]">time</span></div>
         <div className="flex gap-6 items-center">
-          <a className="text-white/60 text-sm hover:text-white cursor-pointer">找教练</a>
-          <a className="text-white/60 text-sm hover:text-white cursor-pointer">成为教练</a>
-          <a className="text-white/60 text-sm hover:text-white cursor-pointer">定价</a>
-          <button className="bg-[#2d6a2d] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#245524]">免费注册</button>
+          <a href="/auth/login" className="text-white/60 text-sm hover:text-white">找教练</a>
+          <a href="/auth/login" className="text-white/60 text-sm hover:text-white">成为教练</a>
+          <a href="/auth/login" className="text-white/60 text-sm hover:text-white">登录</a>
+          <a href="/auth/register" className="bg-[#2d6a2d] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#245524]">免费注册</a>
         </div>
       </nav>
 
@@ -29,7 +29,7 @@ export default function Home() {
         </h1>
         <p className="text-white/50 text-sm max-w-md leading-relaxed mb-10">连接全国专业认证网球教练，智能匹配最适合你水平与目标的训练方案</p>
         <div className="flex gap-4">
-          <button className="bg-[#2d6a2d] text-white px-8 py-3 text-sm rounded-sm hover:bg-[#245524]">立即找教练</button>
+          <a href="/auth/register" className="bg-[#2d6a2d] text-white px-8 py-3 text-sm rounded-sm hover:bg-[#245524]">立即找教练</a>
           <button className="border border-white/30 text-white px-8 py-3 text-sm rounded-sm hover:border-[#8fce6a]">了解更多</button>
         </div>
         <div className="flex gap-12 mt-16">
@@ -124,7 +124,7 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <button className={`w-full py-3 text-sm rounded-sm transition-colors ${plan.featured ? "bg-[#2d6a2d] text-white hover:bg-[#245524]" : "border border-white/20 text-white hover:border-[#2d6a2d]"}`}>{plan.btn}</button>
+              <a href="/auth/register" className={`block w-full py-3 text-sm rounded-sm text-center transition-colors ${plan.featured ? "bg-[#2d6a2d] text-white hover:bg-[#245524]" : "border border-white/20 text-white hover:border-[#2d6a2d]"}`}>{plan.btn}</a>
             </div>
           ))}
         </div>
