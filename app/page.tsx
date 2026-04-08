@@ -1,4 +1,21 @@
+"use client"
+import { useState, useEffect } from "react"
+import { supabase } from "./lib/supabase"
+
 export default function Home() {
+  const [user, setUser] = useState<any>(null)
+
+  useEffect(() => {
+    supabase.auth.getUser().then(({ data }) => {
+      setUser(data.user)
+    })
+  }, [])
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut()
+    setUser(null)
+  }
+
   const coaches = [
     { name: "李明远", initial: "李", title: "前职业球员 · ITF 认证 · 北京", tags: ["竞技提升", "发球技术", "青少年"], price: "¥380", rating: "4.9", reviews: "128", bg: "from-[#1a3a1a] to-[#2d5a1a]", featured: true, id: "li-mingyuan" },
     { name: "王雅琴", initial: "王", title: "体育学院硕士 · USPTA 认证 · 上海", tags: ["零基础入门", "女子专场", "体能训练"], price: "¥280", rating: "4.8", reviews: "96", bg: "from-[#1a2a3a] to-[#1a3a4a]", featured: false, id: "wang-yaqin" },
@@ -12,10 +29,18 @@ export default function Home() {
       <nav className="flex items-center justify-between px-8 py-4 border-b border-white/10">
         <div className="text-white font-serif text-xl">Spor<span className="text-[#8fce6a]">time</span></div>
         <div className="flex gap-6 items-center">
-          <a href="/auth/login" className="text-white/60 text-sm hover:text-white">找教练</a>
-          <a href="/auth/login" className="text-white/60 text-sm hover:text-white">成为教练</a>
-          <a href="/auth/login" className="text-white/60 text-sm hover:text-white">登录</a>
-          <a href="/auth/register" className="bg-[#2d6a2d] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#245524]">免费注册</a>
+          {user ? (
+            <>
+              <span className="text-white/60 text-sm">你好，{user.user_metadata?.name || user.email}</span>
+              <button onClick={handleLogout} className="text-white/60 text-sm hover:text-white">退出登录</button>
+            </>
+          ) : (
+            <>
+              <a href="/auth/login" className="text-white/60 text-sm hover:text-white">登录</a>
+              <a href="/auth/login" className="text-white/60 text-sm hover:text-white">成为教练</a>
+              <a href="/auth/register" className="bg-[#2d6a2d] text-white text-sm px-4 py-2 rounded-sm hover:bg-[#245524]">免费注册</a>
+            </>
+          )}
         </div>
       </nav>
 
